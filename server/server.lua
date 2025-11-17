@@ -56,7 +56,12 @@ AddEventHandler('Core:Shared:Ready', function()
 
         Wait(2000)
         local f = Banking.Accounts:GetOrganization("dgang")
-        bankAcc = f.Account
+        if type(f) == 'table' and f.Account ~= nil then
+            bankAcc = f.Account
+        else
+            bankAcc = nil
+            Logger:Warn("Fuel", "Failed to fetch default bank account for fuel deposits")
+        end
     end)
 end)
 
